@@ -1,0 +1,51 @@
+<div class="dashboard">
+  <nav class="navbar">
+    <h1>🔐 Smart Access Dashboard</h1>
+    <div class="nav-links">
+      <a routerLink="/devices">Devices</a>
+      <a routerLink="/logs">Logs</a>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="stats">
+    <div class="stat-card">
+      <h2>{{ totalLogs }}</h2>
+      <p>Total Access Logs</p>
+    </div>
+    <div class="stat-card">
+      <h2>{{ totalDevices }}</h2>
+      <p>Total Devices</p>
+    </div>
+    <div class="stat-card green">
+      <h2>{{ onlineDevices }}</h2>
+      <p>Devices Online</p>
+    </div>
+  </div>
+
+  <div class="recent">
+    <h3>Recent Access Logs</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Device</th>
+          <th>Type</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of logs">
+          <td>{{ log.name }}</td>
+          <td>{{ log.device_name }}</td>
+          <td>
+            <span [class]="log.access_type === 'tap_in' ? 'badge green' : 'badge red'">
+              {{ log.access_type }}
+            </span>
+          </td>
+          <td>{{ log.timestamp | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

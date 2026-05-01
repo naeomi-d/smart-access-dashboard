@@ -1,0 +1,57 @@
+<div class="logs">
+  <nav class="navbar">
+    <h1>🔐 Smart Access Dashboard</h1>
+    <div class="nav-links">
+      <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/devices">Devices</a>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="content">
+    <div class="header">
+      <h2>Access Logs</h2>
+    </div>
+
+    <div class="tap-box">
+      <h3>Simulate Device Tap</h3>
+      <div class="tap-controls">
+        <select [(ngModel)]="selectedDevice">
+          <option *ngFor="let device of devices" [value]="device.name">
+            {{ device.name }}
+          </option>
+        </select>
+        <select [(ngModel)]="selectedType">
+          <option value="tap_in">Tap In</option>
+          <option value="tap_out">Tap Out</option>
+        </select>
+        <button (click)="tapIn()">Simulate Tap</button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Device</th>
+          <th>Type</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of logs">
+          <td>{{ log.name }}</td>
+          <td>{{ log.email }}</td>
+          <td>{{ log.device_name }}</td>
+          <td>
+            <span [class]="log.access_type === 'tap_in' ? 'badge green' : 'badge red'">
+              {{ log.access_type }}
+            </span>
+          </td>
+          <td>{{ log.timestamp | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

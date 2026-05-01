@@ -1,0 +1,50 @@
+<div class="devices">
+  <nav class="navbar">
+    <h1>🔐 Smart Access Dashboard</h1>
+    <div class="nav-links">
+      <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/logs">Logs</a>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="content">
+    <div class="header">
+      <h2>Devices</h2>
+      <button class="add-btn" (click)="showForm = !showForm">+ Add Device</button>
+    </div>
+
+    <div class="form-box" *ngIf="showForm">
+      <input [(ngModel)]="newDevice.name" placeholder="Device Name" />
+      <input [(ngModel)]="newDevice.location" placeholder="Location" />
+      <button (click)="addDevice()">Save Device</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Device Name</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let device of devices">
+          <td>{{ device.name }}</td>
+          <td>{{ device.location }}</td>
+          <td>
+            <span [class]="device.status === 'online' ? 'badge green' : 'badge red'">
+              {{ device.status }}
+            </span>
+          </td>
+          <td>
+            <button class="toggle-btn" (click)="toggleStatus(device)">
+              {{ device.status === 'online' ? 'Set Offline' : 'Set Online' }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
